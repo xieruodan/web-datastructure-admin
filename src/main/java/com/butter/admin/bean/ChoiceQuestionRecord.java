@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ChoiceQuestionRecord保存用户在做题模块的做的每一道题的记录
+ * ChoiceQuestionRecord保存用户在做题模块做的每一道题的记录
  */
 @AllArgsConstructor
 @NoArgsConstructor
