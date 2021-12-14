@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation-Linked List</title>
+    <script src="js/jQuery2.js"></script>
+    <script src="js/animation_linklist.js"></script>
+    <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.min.css">
+    <script src="js/jquery-ui-1.12.1/jquery.min.js"></script>
+    <script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body bgcolor="#E9C2A6">
+<h3 th:href="@{/home}">Datastructure.learner:Animation Linked List</h3>
+<a class="logo" th:href="@{/home}">DataStructure<span style="font-size: 60%">.learner</span><span>HOME</span></a>
+
+<div id="sort-canvas"
+     style="background: #FFFFF9; height: 400px; width: 1200px; position: relative; margin:0 auto;">
+</div>
+<br>
+
+<input id="numnum" type="text">
+<button id="numnum1">创建</button>
+<input id="search" type="text">
+<button id="search1">查找</button>
+<br>
+<input id="inserthead" type="text">
+<button id="insert2">头部插入</button>
+<input id="insert" type="text">
+<button id="insert1">尾部插入</button>
+<br>
+
+<script>
+    var a;
+    document.getElementById("numnum").value = "21,42,27,12,4,17";
+    document.getElementById("search").value = "";
+    document.getElementById("insert").value = "";
+    var temp = $('#numnum').val();
+    var getStr = temp.split(",");
+    var spanname = newPlayer_sort(getStr);
+    var num1 = new Array(getStr.length);
+    for (var s = 0; s < getStr.length; s++) {
+        num1[s] = parseInt(getStr[s]);
+    }
+    document.getElementById("numnum1").onclick = function() {
+        mess = document.getElementById("numnum").value;
+        document.getElementById("abc").innerHTML = mess;
+        $('#sort-canvas').html("");
+        getStr = mess.split(",");
+        spanname = newPlayer_sort(getStr);
+        num1 = new Array(getStr.length);
+        for (var s = 0; s < getStr.length; s++) {
+            num1[s] = parseInt(getStr[s]);
+            console.log(spanname[s]);
+        }
+    };
+    document.getElementById("search1").onclick = function() {
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(getStr);
+        num1 = new Array(getStr.length);
+        for (var s = 0; s < getStr.length; s++) {
+            console.log(spanname[s]);
+        }
+        var searchfor = $('#search').val();
+        var flag = 0;
+        var index ;
+        function doSetTimeout(i) {
+            setTimeout(function() {
+                chargecolor_sort(document.getElementById(spanname[i]), "#FF9900");
+            }, 1000 * (i+1));
+        }
+        for (index = 0; index < getStr.length; index++) {
+            doSetTimeout(index);
+            if (searchfor == getStr[index] ) {
+                flag = 1;
+                setTimeout(function() {
+                    chargecolor_sort(document.getElementById(spanname[index]), "#20B2AA");
+                }, 1000 * (index+2));
+                break;
+            }
+        }
+        if( flag == 1 ) {
+            document.getElementById("abc").innerHTML = "在链表中找到元素" + searchfor + ",在链表的第" + index + "位。";
+        } else {
+            document.getElementById("abc").innerHTML = "在链表中没有找到元素" + searchfor + "。";
+        }
+    };
+    document.getElementById("insert1").onclick = function() {
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(getStr);
+        num1 = new Array(getStr.length);
+        for (var s = 0; s < getStr.length; s++) {
+            console.log(spanname[s]);
+        }
+        var insertfor = $('#insert').val();
+        addeletail(insertfor, spanname);
+    };
+    document.getElementById("insert2").onclick = function() {
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(getStr);
+        num1 = new Array(getStr.length);
+        for (var s = 0; s < getStr.length; s++) {
+            console.log(spanname[s]);
+        }
+        var insertfor = $('#inserthead').val();
+        addelehead(insertfor, spanname);
+    };
+</script>
+<p id="abc">21,42,27,12,4,17</p>
+</body>
+</html>

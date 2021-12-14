@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butter.admin.mapper.ChoiceQuestionRecordMapper">
+    <select id="getRightCountByErId" resultType="java.lang.Integer" parameterType="long">
+        select COUNT(*) from choice_question_record_tbl where er_id = #{erId} AND isright = 1
+    </select>
+    <select id="getFalseQIdByErId" resultType="java.lang.Long" parameterType="long">
+        select q_id from choice_question_record_tbl where er_id = #{erId} AND isright = 0
+    </select>
+</mapper>

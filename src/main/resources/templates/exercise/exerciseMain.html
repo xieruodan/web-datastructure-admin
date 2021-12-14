@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="This is the formative assessment tool to help Computer Science educators worldwide to &#39;force&#39; basic understanding of various common data structures and algorithms taught in CS courses.">
+    <meta name="keywords" content="Online Quiz Training Data Structures Algorithms Formative Assessment">
+
+    <meta name="csrf-token" content="ZGnaFstpqYUpb46TqCToiNBcoXiBEDWErMD3zn5r">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+    <title>EXERCISE</title>
+
+    <div th:include="exercise/exerciseCommon :: exerciseCommonCSS"></div>
+
+    <div th:replace="exercise/exerciseCommon :: exerciseMainPageCommonStyle"></div>
+
+    <div th:replace="exercise/exerciseCommon :: exerciseCommonScript"></div>
+
+<!--    <div th:include="exercise/exerciseCommon.html :: exerciseCommonHeader"></div>-->
+</head>
+
+
+<body>
+<div id="top-bar">
+    <a href="http://www.comp.nus.edu.sg/~stevenha"><span class="colour"
+                                                         style="border: 1px solid green; border-radius: 25px;">4</span></a>&nbsp;&nbsp;&nbsp;
+    <a id="home" href="/">Data<span class="colour" style="font-color:#a7d41e">Structure</span><span
+            style="font-size: 40%">.learner</span></a>
+    /training
+    <span class="right-links" id="useraccount">
+        <div th:replace="common :: homeCommonHeader2"></div>
+    </span>
+</div>
+<div id="dark-overlay"></div>
+<div id="loading-overlay">
+    <div id="loading-message" class="overlays">
+        <img src="images/loading.gif" alt="Loading... Please Wait...">
+        <p>Loading... Please Wait.</p>
+
+    </div>
+</div>
+
+<div id="topics-screen">
+    <div>
+        <h1><a style="font-size:25px;horiz-align:center;text-align:center;margin-top:5px;">请选择自主试题模块，难度，题数与时间</a></h1>
+        <br>
+        <div style="margin-top:-30px; padding-bottom: 6px;text-align:center;">
+
+            <input id="select-all-button" type="button" style="margin-right:20px;margin-left:20px;background-color:#a7d41e;color:#ffffff;
+padding:5px;padding-left:10px;padding-right:10px;font-style:Calibri;font-size:15px;font-weight:bold;" value="选择全部">&nbsp;
+            <input id="select-quiz-1-button" type="button" style="margin-right:20px;margin-left:20px;background-color:#a7d41e;color:#ffffff;
+padding:5px;padding-left:10px;padding-right:10px;font-style:Calibri;font-size:15px;font-weight:bold;" value="错题回顾">&nbsp;
+            <input id="select-quiz-2-button" type="button" style="margin-right:20px;margin-left:20px;background-color:#a7d41e;color:#ffffff;
+padding:5px;padding-left:10px;padding-right:10px;font-style:Calibri;font-size:15px;font-weight:bold;" value="智能题库">&nbsp;
+            <input id="select-clear-button" type="button" style="margin-right:20px;margin-left:20px;background-color:#a7d41e;color:#ffffff;
+padding:5px;padding-left:10px;padding-right:10px;font-style:Calibri;font-size:15px;font-weight:bold;" value="清除所选">
+        </div>
+    </div>
+
+
+    <script>
+        function bigImg(x) {
+            x.style.opacity = 1;
+        }
+
+        function normalImg(x) {
+            x.style.opacity = 0.35;
+        }
+
+        function bianse(x) {
+            x.style.opacity = 1;
+        }
+    </script>
+
+
+    <table style="margin-top:10px;text-align:center;height: 385px;width:600px;margin:0 auto;cellspacing:8;">
+        <tr>
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;
+  font-weight:bold;font-size:10px;">
+                        <img src="images/sorting.png" alt="" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Sorting
+                        <span class="tooltiptext" style="text-decoration:none;">排序练习</span>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/index.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Linked List
+                        <span class="tooltiptext">链表练习</span>
+                    </div>
+                </div>
+            </td>
+
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/hashtable.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Hash Table
+                        <span class="tooltiptext">哈希表练习</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/bst.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Binary Search Tree
+                        <span class="tooltiptext">二叉搜索树练习</span>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/dfsbfs.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Graph Traversal
+                        <span class="tooltiptext">搜索练习</span>
+                    </div>
+                </div>
+            </td>
+
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/mst.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Minimum Spanning Tree
+                        <span class="tooltiptext">最小生成树练习</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/sssp.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Single-Source Shortest Path
+                        <span class="tooltiptext">单源最短路径练习</span>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/graphds.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Cycle Finding
+                        <span class="tooltiptext">循环查找练习</span>
+                    </div>
+                </div>
+            </td>
+
+
+            <td>
+                <div class="tooltip">
+                    <div style="display:block;width:120px;height:85px;background:white;padding-top:10px;padding-bottom:10px;
+  padding-left:10px;padding-right:10px;box-shadow: 0px 0px 3px #dddddd;text-align:center;font-style:Arial;font-weight:bold;font-size:10px;">
+                        <img src="images/bitmask.png" onmousemove="bigImg(this)" onmouseout="normalImg(this)"
+                             onclick="bianse(this)"
+                             style="vertical-align:middle;width:96px;height:72px;margin: 0 auto;text-align:center;opacity:0.35;">
+                        Basic Concept
+                        <span class="tooltiptext">基础概念练习</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+
+    <script>
+        function validateForm() {
+            var x = document.forms["myForm"]["fname"].value;
+            if (x == null || x == "") {
+                alert("需要输入名字。");
+                return false;
+            }
+        }
+    </script>
+
+
+    <div id="box" style="margin-top: 2px; font-weight: bold; font-size: 12px;text-align:center;">
+        <form th:action="@{/goToExercise}" method="post">
+            <!-- <%=request.getContextPath()%>/H1 -->
+            <div th:switch="${session.loginUser != null}">
+                账号:&nbsp;&nbsp;
+                <input th:case="true" type="text" size="10px" name="userName" th:value="${session.loginUser.userName}"></input>
+                <p th:case="false" font-size="200%">请登陆后再做题，否则后台无法记录</p>
+            </div>
+
+            试题章节:&nbsp;&nbsp;<input id="takername" type="text" name="section" placeholder="Write your section"></input>
+            难度:&nbsp;&nbsp;
+            <select id="question-difficulty-ddl" name="levelS" data-name="question-difficulty" style="height: 25px;">
+                <option value="Easy" selected>低</option>
+                <option value="Medium" selected>中</option>
+                <option value="Hard">高</option>
+            </select>
+            &nbsp;&nbsp;题目数：&nbsp;&nbsp;
+            <input id="question-amount-input" name="questionNum" title="Enter a number [1-20]"
+                   style="width: 40px; height: 25px; text-align: center;" type="number" min="1" max="20" step="1"
+                   value="5"/>
+            &nbsp;&nbsp;时间：&nbsp;&nbsp;
+            <select id="question-time-limit-ddl" name="time" style="height: 25px;">
+                <option value=0>不限</option>
+                <option value=300>5 min</option>
+                <option value=600 selected>10 min</option>
+                <option value=900>15 min</option>
+                <option value=1200>20 min</option>
+            </select>
+            <br></br>
+            <input id="start-training" type="submit"
+                   style="margin-top:-40px;font-style:Calibri;font-size:15px;font-weight:bold;color:#ffffff;background-color:#a7d41e;"
+                   value="开始做题">
+        </form>
+    </div>
+
+    <div style="margin: 0 auto;text-align:center;vertical-align:middle;margin-top:25px;">
+    </div>
+
+    <div id="bottom-bar" style="position:absolute;bottom:-129px;margin-left:-335px;padding-bottom:10px;height:32px;width:200%">
+    <a id="trigger-about">About</a>
+    <a id="trigger-team">Team</a>
+    <a id="trigger-terms">Terms of use</a>
+    </div>
+
+
+    <div id="about" class="overlays">
+        <h4>About</h4><span class='close-overlay'>&#x2715;</span>
+        <div class='content'>
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+            <p>:
+                <a href="#" target='_blank'><u>zh</u></a>, <a href='-a' target='_blank'><u>id</u></a>, <a href="#"
+                                                                                                          target='_blank'><u>kr</u></a>,
+                <a href='94/' target='_blank'><u>vn</u></a>, <a href='3' target='_blank'><u>th</u></a>.</p>
+        </div>
+    </div>
+    <div id="team" class="overlays">
+        <h4>Team</h4><span class='close-overlay'>&#x2715;</span>
+        <div class='content'>
+            <p>
+                <strong><span style='line-height: 150%;'>Project Leader &amp; Advisor (Jul 2011-present)</span></strong><br>
+                <a href='a/' target='_blank'></a>)<br>
+                <a href='t' target='_blank'></a>,
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'>Undergraduate Student Researchers 1 (Jul 2011-Apr 2012)</span></strong><br>
+                Koh Zi Chun, <a href='http://roticv.rantx.com/' target='_blank'>Victor Loh Bo Huai</a>
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'>(Jul 2012-Dec 2013)</span></strong><br>
+
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'></span></strong><br>
+                <a href='m/' target='_blank'></a>
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'></span></strong><br>
+
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'></span></strong><br>
+
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'></span></strong><br>
+
+            </p>
+            <p>
+                <a href="#"></a> page.
+            </p>
+            <p>
+                <strong><span style='line-height: 150%;'></span></strong><br>
+                <a href="#" target="_blank"></a>
+            </p>
+        </div>
+    </div>
+    <div id="termsofuse" class="overlays">
+        <h4>Terms of use</h4><span class='close-overlay'>&#x2715;</span>
+        <div class='content'>
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+            <p><strong><span style="line-height: 200%;"></span></strong></p>
+            <p><a href="#" target="_blank"></a>).</p>
+            <p><a href="#" target="_blank"></a>, <a href="#" target="_blank"></a>, <a href="#" target="_blank"></a>, <a
+                    href="fyp/ivan-report.pdf" target="_blank"></a>.</p>
+            <p><strong><span style="line-height: 200%;"></span></strong></p>
+            <p>.</p>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

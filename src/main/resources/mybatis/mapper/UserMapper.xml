@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butter.admin.mapper.UserMapper">
+<!--    public Account get(Long id)-->
+<!--    <select id="" resultType="com.butter.admin.bean.User">-->
+<!--        select * from xxx where id=#{id}-->
+<!--    </select>-->
+
+    <insert id="insertUser" parameterType="com.butter.admin.bean.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user_tbl(`user_name`,`password`,`email`,`roles`) values (#{userName},#{password},#{email},#{roles})
+    </insert>
+</mapper>

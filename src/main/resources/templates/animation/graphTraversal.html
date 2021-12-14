@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation-Graph Traversal</title>
+    <style type="text/css">
+        .container{
+            width: 600px;
+            height: 800px;
+            margin: 0 auto;
+        }
+        .node{
+            width: 100px;
+            min-height: 100px;
+        }
+        .circle{
+            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body bgcolor="#E9C2A6">
+<h3 th:href="@{/home}">Datastructure.learner:Animation Graph Traversal</h3>
+<a class="logo" th:href="@{/home}">DataStructure<span style="font-size: 60%">.learner</span><span>HOME</span></a>
+<div class="container">
+    <div class="control">
+        选择开始遍历的结点：
+        <select id="node">
+            <option>v0</option>
+        </select>
+        选择遍历方式：
+        <select id="select">
+            <option>深度优先遍历</option>
+            <option>广度优先遍历</option>
+        </select>
+        <input type="button" name="click" value="开始遍历" id="button">
+    </div>
+    <svg id="svg" width="600" height="600"></svg>
+</div>
+<script type="text/javascript">
+    (function(){
+//存放图结点的数组
+        var graphVertex = ["v0","v1","v2","v3","v4","v5","v6"];
+//存放图边的数组
+        var graphAdge = [
+            {
+                start:"v0",
+                end: "v2",
+                weight: 2
+            },
+            {
+                start:"v0",
+                end: "v5",
+                weight: 8
+            },
+            {
+                start:"v3",
+                end: "v2",
+                weight: 1
+            },
+            {
+                start:"v3",
+                end: "v5",
+                weight: 3
+            },
+            {
+                start:"v4",
+                end: "v1",
+                weight: 6
+            },
+            {
+                start:"v5",
+                end: "v4",
+                weight: 8
+            },
+            {
+                start:"v1",
+                end: "v2",
+                weight: 8
+            },
+            {
+                start:"v1",
+                end: "v6",
+                weight: 8
+            }
+        ];
+//图的构造函数,n:结点数量 ， e: 边的数量
+        var Graph = function(graphVertex,graphAdge){
+            var vertex = [];//存放图中顶点的数组
+            var arc = [];//存放图中边的邻接矩阵
+            var n = graphVertex.length, e = graphAdge.length;
+            //初始化邻接矩阵
+            var initArr = function(){
+                //深拷贝，不改变输入数组
+                vertex = JSON.parse(JSON.stringify(graphVertex));
+                //顶点和边的数量
+                var n = graphVertex.length, e = graphAdge.length;
+                //初始化arc数组
+                for(let i=0;i<n;i++){
+                    let arrTemp = new Array(n);
+                    for(let j=0;j<n;j++){
+                        arrTemp[j] = Infinity;
+                    }
+                    arc[i] = arrTemp;
+                }
+                //给arc邻接矩阵填充边的权值
+                for(let i=0;i<e;i++){
+                    var start = graphVertex.indexOf(graphAdge[i].start);
+                    var end = graphVertex.indexOf(graphAdge[i].end);
+                    if(start===-1||end===-1){
+                        throw Error("边数组中有结点不在结点数组中");
+                        return;
+                    }
+                    arc[start][end] = graphAdge[i].weight;
+                    arc[end][start] = graphAdge[i].weight;
+                }
+                //console.log(arc);
+            };
+            //立即执行函数，初始化
+            (function(){
+                initArr();
+            })();
+
+            //图的深度优先遍历
+            var dfsTraverse = function(v){
+                //输入检测
+                if(vertex.indexOf(v)===-1){
+                    throw Error("广度优先遍历输入结点不在结点数组中");
+                    return;
+                }
+                var visited = [];
+                var result = [];
+                var stack = [];
+                stack.push(v);
+                result.push(v);
+                visited[vertex.indexOf(v)] = true;
+                while(stack.length!==0){
+                    let p = stack.pop();
+                    if(visited[vertex.indexOf(p)] !== true){
+                        result.push(p);
+                    }
+                    visited[vertex.indexOf(p)] = true;
+                    let row = vertex.indexOf(p);
+                    for(let i=n-1;i>=0;i--){
+                        if(arc[row][i]!==Infinity && visited[i] !== true){
+                            stack.push(vertex[i]);
+                        }
+                    }
+                    if(result.length>100){
+                        alert("死循环");
+                    }
+                }
+                return result;
+            }
+            //图的广度优先遍历
+            var bfsTraverse = function(v){
+                if(vertex.indexOf(v)===-1){
+                    throw Error("广度优先遍历输入结点不在结点数组中");
+                    return;
+                }
+                var queue = [];
+                var visited = [];
+                var pre = 0, tail = 1;
+                queue.push(v);
+                visited[vertex.indexOf(v)] = true;
+                while(pre !== tail){
+                    let p = queue[pre++];
+                    let row = vertex.indexOf(p);
+                    if(row===-1){
+                        throw Error("广度优先遍历结点不在结点数组中");
+                    }
+                    for(let i=0;i<n;i++){
+                        if(arc[row][i]!==Infinity && visited[i] !== true){
+                            queue.push(vertex[i]);
+                            visited[i] = true;
+                        }
+                    }
+                    tail = queue.length;
+                    if(pre>100){
+                        alert("死循环");
+                    }
+                }
+                //console.log(queue);
+                return queue;
+            }
+            return {
+                dfsTraverse: dfsTraverse,
+                bfsTraverse: bfsTraverse,
+            }
+        }
+        var showGraph = function(){
+            var svg = document.getElementById("svg");
+            var circleStr = "",lineStr = "",textStr = "",arrowStr="";//圆、线和文本的HTML字符串
+            var adge = JSON.parse(JSON.stringify(graphAdge));//层序遍历生成数组
+            var vertex = JSON.parse(JSON.stringify(graphVertex));//层序遍历生成数组
+            var vertexObj = {};
+            var width = Number(svg.getAttribute("width"))-50;//画布宽度
+            var r = width/2;//半径
+            //画圆和顶点名
+            for(let i=0;i<vertex.length;i++){
+                let vertexName = vertex[i], len = vertexName.length;
+                let angle = (i*2*Math.PI/vertex.length);
+                let cx = 0, cy = 0;//当前结点的定位像素坐标
+                cx = r*(1 + Math.sin(angle) )+25;
+                cy = r*(1 - Math.cos(angle) )+25;
+                let obj = {
+                    "cx":cx,
+                    "cy":cy
+                };
+                vertexObj[vertexName] = obj;
+                vertexObj[vertexName] = obj;
+                circleStr += '<circle cx="'+cx+'" cy="'+cy+'" r="20" fill="#a1a1a1"/></circle>';
+                //调整文本缩进
+                let textcx = len>1?(cx-10):(cx-5);
+                let textcy = cy+6;
+                textStr += '<text x="'+textcx+'" y="'+textcy+'" fill="black">'+vertexName+'</text>';
+            }
+            //画线和数字
+            for(let i =0;i<adge.length;i++){
+
+                let startcx = 0, startcy = 0,endcx = 0,endcy = 0;//当前结点的定位像素坐标
+
+                if(!vertexObj[adge[i].start]||!vertexObj[adge[i].end]){
+                    throw Error("边数组中有结点不在结点数组中");
+                    return;
+                }
+                startcx = vertexObj[adge[i].start].cx;
+                startcy = vertexObj[adge[i].start].cy;
+                endcx = vertexObj[adge[i].end].cx;
+                endcy = vertexObj[adge[i].end].cy;
+                lineStr += '<line x1="'+startcx+'" y1="'+startcy+'" x2="'+endcx+
+                    '" y2="'+endcy+'" style="stroke:#999;stroke-width:2" />';
+
+                //计算三角形箭头的坐标和旋转角
+                var getTriangle = function(obj){
+                    var x = endcx,y=endcy+20;
+                    startcx = obj.startcx;
+                    startcy= obj.startcy;
+                    endcx= obj.endcx;
+                    endcy= obj.endcy;
+                    var x = endcx, y = endcy+20;
+                    var points = [x-7,y+15,x+7,y+15,x,y].join(",");//一个三角形三点的坐标
+                    var angle = 0;
+                    //注意这里的坐标系和通常情况下的坐标系y轴是相反的，因此 endcy-startcy 要变为startcy-endcy
+                    angle =180*Math.acos((startcy-endcy)/Math.sqrt((endcx-startcx)*(endcx-startcx)+
+                        (startcy-endcy)*(startcy-endcy)))/Math.PI;
+                    if(endcx-startcx < 0){
+                        angle = 360 - angle;
+                    }
+                    var out = {
+                        "points":points,
+                        "angle":angle
+                    }
+                    return out;
+                }
+                //如果是无向图隐藏下面计算与画三角形箭头的代码即可
+                var obj = {
+                    "startcx":startcx,
+                    "startcy":startcy,
+                    "endcx":endcx,
+                    "endcy":endcy
+                }
+                var data = getTriangle(obj);
+                var angle = [data.angle,endcx,endcy].join(",");
+                //画三角形箭头
+                arrowStr += '<polygon points="'+data.points+'" fill:"#171717" transform="rotate('+angle+')"/>';
+
+                obj = {
+                    "startcx":endcx,
+                    "startcy":endcy,
+                    "endcx":startcx,
+                    "endcy":startcy
+                }
+                data = getTriangle(obj);
+                angle = [data.angle,endcx,endcy].join(",");
+                //画三角形箭头
+                arrowStr += '<polygon points="'+data.points+'" fill:"#171717" transform="rotate('+angle+')"/>';
+
+
+                //调整文本缩进
+                var textcx = (startcx + endcx)/2;
+                var textcy = (startcy + endcy)/2;
+
+                textStr += '<text x="'+textcx+'" y="'+textcy+'" fill="#171717">'+adge[i].weight+'</text>';
+            }
+            svg.innerHTML = lineStr+circleStr+textStr+arrowStr;
+        }
+        showGraph();
+
+        var graph = new Graph(graphVertex,graphAdge);
+        console.log("基于邻接矩阵实现：");
+        console.log("深度优先遍历",graph.dfsTraverse("v0"));
+        console.log("广度优先遍历",graph.bfsTraverse("v0"));
+
+        var showGraphTraverse = function(id){
+            var svg = document.getElementById("svg");
+            svg.innerHTML = "";
+            var circleStr = "",lineStr = "",textStr = "",arrowStr="";//圆、线和文本的HTML字符串
+            var adge = JSON.parse(JSON.stringify(graphAdge));//层序遍历生成数组
+            var vertex = JSON.parse(JSON.stringify(graphVertex));//层序遍历生成数组
+            var vertexObj = {};//存放所有顶点的对象，键为顶点名，值为含有属性的对象
+            var width = Number(svg.getAttribute("width"))-50;//画布宽度
+            var r = width/2;//半径
+            //画圆和顶点名
+            for(let i=0;i<vertex.length;i++){
+                let vertexName = vertex[i], len = vertexName.length;
+                let angle = (i*2*Math.PI/vertex.length);
+                let cx = 0, cy = 0;//当前结点的定位像素坐标
+                cx = r*(1 + Math.sin(angle) )+25;
+                cy = r*(1 - Math.cos(angle) )+25;
+                let obj = {
+                    "cx":cx,
+                    "cy":cy
+                };
+                vertexObj[vertexName] = obj;
+                var color = "#999";
+                if(id===vertex[i]){
+                    color = "#FF9900";
+                }
+
+
+                circleStr += '<circle cx="'+cx+'" cy="'+cy+'" r="20" fill="'+color+'"/></circle>';
+                //调整文本缩进
+                let textcx = len>1?(cx-10):(cx-5);
+                let textcy = cy+6;
+                textStr += '<text x="'+textcx+'" y="'+textcy+'" fill="black">'+vertexName+'</text>';
+            }
+            //画线和数字
+            for(let i =0;i<adge.length;i++){
+
+                let startcx = 0, startcy = 0,endcx = 0,endcy = 0;//当前结点的定位像素坐标
+
+                if(!vertexObj[adge[i].start]||!vertexObj[adge[i].end]){
+                    throw Error("边数组中有结点不在结点数组中");
+                    return;
+                }
+                startcx = vertexObj[adge[i].start].cx;
+                startcy = vertexObj[adge[i].start].cy;
+                endcx = vertexObj[adge[i].end].cx;
+                endcy = vertexObj[adge[i].end].cy;
+                lineStr += '<line x1="'+startcx+'" y1="'+startcy+'" x2="'+endcx+
+                    '" y2="'+endcy+'" style="stroke:#999;stroke-width:2" />';
+
+                //计算三角形箭头的坐标和旋转角
+                var getTriangle = function(obj){
+                    var x = endcx,y=endcy+20;
+                    startcx = obj.startcx;
+                    startcy= obj.startcy;
+                    endcx= obj.endcx;
+                    endcy= obj.endcy;
+                    var x = endcx, y = endcy+20;
+                    var points = [x-7,y+15,x+7,y+15,x,y].join(",");//一个三角形三点的坐标
+                    var angle = 0;
+                    //注意这里的坐标系和通常情况下的坐标系y轴是相反的，因此 endcy-startcy 要变为startcy-endcy
+                    angle =180*Math.acos((startcy-endcy)/Math.sqrt((endcx-startcx)*(endcx-startcx)+
+                        (startcy-endcy)*(startcy-endcy)))/Math.PI;
+                    if(endcx-startcx < 0){
+                        angle = 360 - angle;
+                    }
+                    var out = {
+                        "points":points,
+                        "angle":angle
+                    }
+                    return out;
+                }
+                var obj = {
+                    "startcx":startcx,
+                    "startcy":startcy,
+                    "endcx":endcx,
+                    "endcy":endcy
+                }
+                var data = getTriangle(obj);
+                var angle = [data.angle,endcx,endcy].join(",");
+                //画三角形箭头
+                arrowStr += '<polygon points="'+data.points+'" fill:"#171717" transform="rotate('+angle+')"/>';
+
+                obj = {
+                    "startcx":endcx,
+                    "startcy":endcy,
+                    "endcx":startcx,
+                    "endcy":startcy
+                }
+                data = getTriangle(obj);
+                angle = [data.angle,endcx,endcy].join(",");
+                //画三角形箭头
+                arrowStr += '<polygon points="'+data.points+'" fill:"#171717" transform="rotate('+angle+')"/>';
+
+
+
+                //调整文本缩进
+                var textcx = (startcx + endcx)/2;
+                var textcy = (startcy + endcy)/2;
+
+                textStr += '<text x="'+textcx+'" y="'+textcy+'" fill="#171717">'+adge[i].weight+'</text>';
+            }
+            svg.innerHTML = lineStr+circleStr+textStr+arrowStr;
+        }
+
+        var select = document.getElementById("select");
+        var button = document.getElementById("button");
+        var node = document.getElementById("node");
+
+        var optionStr = '';
+        for(let i =0;i<graphVertex.length;i++){
+            optionStr += '<option>'+graphVertex[i]+'</option>';
+        }
+        node.innerHTML = optionStr;
+
+        button.addEventListener("click",function(){
+            if(button.click===false){
+                return;
+            }else{
+                button.click = false;
+            }
+            var nodeIndex = node.selectedIndex ;
+            var selectValue = node.options[nodeIndex].value;
+            var index = select.selectedIndex ;
+            switch(index){
+                case 0: traversalArr = graph.dfsTraverse(selectValue);
+                    break;
+                case 1: traversalArr = graph.bfsTraverse(selectValue);
+                    break;
+                default: alert("选择遍历方式出错");
+                    break;
+            }
+            for(let i =0;i<=traversalArr.length;i++){
+                setTimeout(function(i){
+                    showGraphTraverse(traversalArr[i]);
+                    if(i>=traversalArr.length){
+                        button.click = true;
+                    }
+                },1000*i,i);
+            }
+        });
+
+    })();
+
+</script>
+</body>
+</html>

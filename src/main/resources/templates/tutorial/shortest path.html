@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TUTORIAL-SHORTEST PATH</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>单源最短路</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+
+            <header>
+                <h2>Dijkstra算法</h2>
+            </header>
+            <h3>算法简介：</h3>
+            <p>迪杰斯特拉算法是由荷兰计算机科学家狄克斯特拉于1959 年提出的，因此又叫狄克斯特拉算法。是从一个顶点到其余各顶点的最短路径算法，解决的是有向图中最短路径问题。迪杰斯特拉算法主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。</p>
+            <h3>定义：</h3>
+            <p>Dijkstra算法一般的表述通常有两种方式，一种用永久和临时标号方式，一种是用OPEN, CLOSE表的方式，这里均采用永久和临时标号的方式。注意该算法要求图中不存在负权边。</p>
+            <h3>问题描述：</h3>
+            <p>在无向图 G=(V,E) 中，假设每条边 E[i] 的长度为 w[i]，找到由顶点 V0 到其余各点的最短值。</p>
+            <h3>基本思想：</h3>
+            <p>1.通过Dijkstra计算图G中的最短路径时，需要指定起点s(即从顶点s开始计算)。</p>
+            <p>2.此外，引进两个集合S和U。S的作用是记录已求出最短路径的顶点(以及相应的最短路径长度)，而U则是记录还未求出最短路径的顶点(以及该顶点到起点s的距离)。</p>
+            <p>3.初始时，S中只有起点s；U中是除s之外的顶点，并且U中顶点的路径是”起点s到该顶点的路径”。然后，从U中找出路径最短的顶点，并将其加入到S中；接着，更新U中的顶点和顶点对应的路径。 然后，再从U中找出路径最短的顶点，并将其加入到S中；接着，更新U中的顶点和顶点对应的路径。重复该操作，直到遍历完所有顶点。</p>
+            <h3>基本原理：</h3>
+            <p>1.首先，引入一个辅助向量D，它的每个分量D[i]表示当前所找到的从起始点v（即源点v）到其它每个顶点的长度。</p>
+            <p>例如，D[3] = 2表示从起始点到顶点3的路径相对最小长度为2。这里强调相对就是说在算法执行过程中D的值是在不断逼近最终结果但在过程中不一定就等于长度。</p>
+            <p>2.D的初始状态为：若从v到vi有弧（即从v到vi存在连接边），则D[i]为弧上的权值（即为从v到vi的边的权值）；否则置D[i]为∞。</p>
+            <p>3.那么，下一条长度次短的是哪一条呢？也就是找到从源点v到下一个顶点的最短路径长度所对应的顶点，且这条最短路径长度仅次于从源点v到顶点vj的最短路径长度。</p>
+            <p>4.一般情况下，假设S为已求得的从源点v出发的最短路径长度的顶点的集合，则可证明：下一条次最短路径（设其终点为x）要么是弧(v,x)，或者是从源点v出发的中间只经过S中的顶点而最后到达顶点x的路径。</p>
+            <img src="images/s1.png" alt="BST1" width="409" height="671">
+            <h3>迪杰斯特拉的实现代码（C/C++）</h3>
+            <img src="images/s2.png" alt="BST1" width="700" height="800">
+            <hr />
+            <h2>Bellman-Ford算法</h2>
+            <h3>算法简介：</h3>
+            <p>Bellman - ford算法是求含负权图的单源最短路径的一种算法，效率较低，代码难度较小。其原理为连续进行松弛，在每次松弛时把每条边都更新一下，若在n-1次松弛后还能更新，则说明图中有负环，因此无法得出结果，否则就完成。</p>
+            <p>Bellman-Ford算法是一种用于计算带权有向图中单源最短路径（SSSP：Single-Source Shortest Path）的算法。该算法由 Richard Bellman 和 Lester Ford 分别发表于 1958 年和 1956 年，而实际上 Edward F. Moore 也在 1957 年发布了相同的算法，因此，此算法也常被称为 Bellman-Ford-Moore 算法。</p>
+            <p>Bellman-Ford算法和 Dijkstra 算法同为解决单源最短路径的算法。对于带权有向图 G = (V, E)，Dijkstra 算法要求图 G 中边的权值均为非负，而 Bellman-Ford 算法能适应一般的情况（即存在负权边的情况）。一个实现的很好的 Dijkstra 算法比 Bellman-Ford 算法的运行时间要低。</p>
+            <p>Bellman-Ford算法能在更普遍的情况下（存在负权边）解决单源点最短路径问题。对于给定的带权（有向或无向）图 G=(V,E), 其源点为s，加权函数 w是 边集 E 的映射。对图G运行Bellman - Ford算法的结果是一个布尔值，表明图中是否存在着一个从源点s可达的负权回路。若不存在这样的回路，算法将给出从源点s到 图G的任意顶点v的最短路径d[v]。</p>
+            <p>Bellman-Ford算法采用动态规划（Dynamic Programming）进行设计，实现的时间复杂度为 O(V*E)，其中 V 为顶点数量，E 为边的数量。Dijkstra 算法采用贪心算法（Greedy Algorithm）范式进行设计，普通实现的时间复杂度为 O(V2)，若基于 Fibonacci heap 的最小优先队列实现版本则时间复杂度为 O(E + VlogV)。</p>
+            <h3>使用条件：</h3>
+            <p>1.单源最短路径(从源点s到其它所有顶点v);</p>
+            <p>2.有向图&无向图(无向图可以看作(u,v),(v,u)同属于边集E的有向图);</p>
+            <p>3.边权可正可负(如有负权回路输出错误提示);</p>
+            <p>4.差分约束系统;</p>
+            <h3>算法描述：</h3>
+            <p>1.初始化：将除源点外的所有顶点的最短距离估计值 d[v] ——>+∞, d[s]——>0;</p>
+            <p>2.迭代求解：反复对边集E中的每条边进行松弛操作，使得顶点集V中的每个顶点v的最短距离估计值逐步逼近其最短距离；（运行|v|-1次）</p>
+            <p>3.检验负权回路：判断边集E中的每一条边的两个端点是否收敛。如果存在未收敛的顶点，则算法返回false，表明问题无解；否则算法返回true，并且从源点可达的顶点v的最短距离保存在 d[v]中。</p>
+            <h3>时间复杂度：</h3>
+            <p>Bellman-Ford算法寻找单源最短路径的时间复杂度为O(VE)。</p>
+            <h3>算法实例：</h3>
+            <img src="images/s3.png" alt="BST1" width="685" height="375">
+
+
+
+
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

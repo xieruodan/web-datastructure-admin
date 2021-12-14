@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>TUTORIAL-CYCLE FINDING</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>循环查找</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+
+
+            <header>
+                <h2>Johnson算法</h2>
+            </header>
+            <p>Johnson算法可以在O(VElgV)时间内求解每对顶点之间的最短路径。对于稀疏图，该算法在要好于Floyd算法。算法与Floyd算法类似，每对顶点之间的最短距离用二维数组D表示；如果图中存在负环，算法将输出警告信息。Johnson算法把Bellman-Ford算法和Dijkstra算法作为其子函数。</p>
+            <p>如果以每个顶点作为起始顶点，用Dijkstra算法求解单源最短路径，则可以求解全源最短路径，算法复杂度为VElgV。但是对含有负权值的图，Dijkstra算法将失效。Johnson算法运用了“重赋权”技术，即将原图中每条边的权值ω重新赋值为ω’，并且具有以下两个性质：</p>
+            <p>1.对所有顶点对u,v，路径p是以权值为ω的原图的最短路径，当且仅当路径p也是以权值为ω’的图的最短路径；</p>
+            <p>2.对于所有的边(u, v)，ω’(u, v)是非负数。</p>
+            <p>重赋权后的图可以利用Dijkstra算法求解任意两个顶点之间的最短路径。我们可以看到，重赋值不会改变最短路径，其处理复杂度为O(VE)。</p>
+            <h3>Johnson算法结合Bellman-Ford算法和Dijkstra算法，包括以下几个步骤：</h3>
+            <p>1.构造原图的扩展图G’=(V’, E’)，V’=V∪{s}，E’=E∪{(s, u):u∈ V}；</p>
+            <p>2.在G’中以s为起始顶点应用Bellman-Ford算法，求解各顶点到顶点s的最短路径；</p>
+            <p>3.对原图重赋权；</p>
+            <p>4.重赋权后以图中每个顶点为起始顶点，应用Dijkstra算法求解每对顶点之间的最短路径；</p>
+            <p>5.由于重赋权改变了图中路径的长度，最后需要还原上一步骤中求得最短路径的长度；</p>
+            <P>根据以上步骤，算法的实现如下：</P>
+            <img src="images/C1.jpeg" alt="C1" width="750" height="1893">
+            <P>根据算法描述步骤和实现代码，以图为例，算法的具体过程如图(a~i)：</P>
+            <img src="images/C2.jpg" alt="C2" width="654" height="682">
+            <hr />
+            <h2> Floyd-Warshall算法</h2>
+            <P>Floyd-Warshall算法是解决任意两点间的最短路径的一种算法。通常可以在任何图中使用，包括有向图、带负权边的图。</P>
+            <h3>使用条件：</h3>
+            <p>Floyd-Warshall 算法用来找出每对点之间的最短距离。它需要用邻接矩阵来储存边，这个算法通过考虑最佳子路径来得到最佳路径。</p>
+            <p>Flyod-Worshall算法考虑的是一条最短路径上的中间节点。假定图G的所有节点为V = {1,2,...,n}，Floyd-Warshall算法利用了路径p和从i到j之间中间节点取自集合{1,,2,...,k-1}的最短路径之间的关系（其中k是小于n的某个整数）。该关系依赖于节点k是否是路径p上的一个中间节点。</p>
+            <p>如果k不是路径p上的中间节点，则路径p上的所有中间节点都属于集合{1,,2,...,k-1}。因此，从节点i到节点j的中间取自集合{1,2,...,k-1}的一条最短路径也是从节点i到j的中间节点取自集合{1,2,...,k}的一条最短路径。</p>
+            <p>如果节点k是路径p上的中间节点，则将路径p分解为i--p1->k--p2->j。那么p1是从节点i到k的中间节点全部取自集合{1,2,...,k-1}的一条最短路径。类似的，p2是从节点k到j的中间节点全部取自集合{1,2,...,k-1}的一条最短路径。</p>
+            <p>Floyd-Warshall算法的时间复杂度为O(n^3)</p>
+            <h3>下图是我们平时所见的Floyd算法的一般形式</h3>
+            <img src="images/C3.png" alt="C3" width="800" height="250">
+            <h3>算法理解： </h3>
+            <p>最短距离有三种情况： </p>
+            <p>1.两点的直达距离最短。（如下图 < v,x>） </p>
+            <p>2.两点间只通过一个中间点而距离最短。（图 < v,u>） </p>
+            <p>3.两点间用通过两各以上的顶点而距离最短。（图 < v,w>）</p>
+            <p>对于第一种情况：在初始化的时候就已经找出来了且以后也不会更改到。 </p>
+            <p>对于第二种情况：弗洛伊德算法的基本操作就是对于每一对顶点，遍历所有其它顶点，看看可否通过这一个顶点让这对顶点距离更短，也就是遍历了图中所有的三角形（算法中对同一个三角形扫描了九次，原则上只用扫描三次即可，但要加入判断，效率更低）。 </p>
+            <p>对于第三种情况：如下图的五边形，可先找一点（比如x，使< v,u>=2），就变成了四边形问题，再找一点（比如y,使 < u,w>=2），可变成三角形问题了（v,u,w），也就变成第二种情况了，由此对于n边形也可以一步步转化成四边形三角形问题。（这里面不用担心哪个点要先找哪个点要后找，因为找了任一个点都可以使其变成（n－1）边形的问题）。</p>
+            <img src="images/C4.gif" alt="C4" width="300" height="200">
+            <P>floyd的核心代码:</P>
+            <img src="images/C5.png" alt="C5" width="800" height="300">
+
+
+
+
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

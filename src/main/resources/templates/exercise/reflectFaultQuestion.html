@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="description" content="This is the formative assessment tool to help Computer Science educators worldwide to &#39;force&#39; basic understanding of various common data structures and algorithms taught in CS courses.">
+    <meta name="keywords" content="Online Quiz Training Data Structures Algorithms Formative Assessment">
+
+    <meta name="csrf-token" content="ZGnaFstpqYUpb46TqCToiNBcoXiBEDWErMD3zn5r">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+    <title>REFLECT YOUR FAULT QUESTIONS</title>
+
+    <div th:include="exercise/exerciseCommon :: exerciseCommonCSS"></div>
+
+    <div th:replace="exercise/exerciseCommon :: exerciseDoExercisePageCommonStyle"></div>
+
+    <div th:replace="exercise/exerciseCommon :: exerciseCommonScript"></div>
+</head>
+<body>
+<!--exercise common top bar-->
+<div th:include="exercise/exerciseCommon :: exerciseCommonTopBar"></div>
+
+<form action="NewFile5.jsp">
+    <table id="zuoti" style="width:100%;height:100%;margin-top:60px;">
+        <tr th:each="fcq,stat:${falseChoiceQuestion}">
+            <td width=10% style="font-style:Arial;font-size:35px;padding-left:60px;padding-top:0px;vertical-align: top;">
+                [[${fcq.qID}]]
+            </td>
+            <td width=60% style="font-style:Arial;font-size:18px;padding-left:0px;padding-top:0px;vertical-align: top;">
+                [[${fcq.qContent}]]
+                <br></br>
+                [[${fcq.aChoice}]]
+                <br></br>
+                [[${fcq.bChoice}]]
+                <br></br>
+                [[${fcq.cChoice}]]
+                <br></br>
+                [[${fcq.dChoice}]]
+                <br></br>
+                <br></br>
+                <p>正确答案为：</p>
+                [[${fcq.qAnswer}]]
+                <br></br>
+            </td>
+            <td width=30% style="text-align:right;padding-top:0px;padding-right:60px;vertical-align: top;">
+                <p style="font-size:20px;">ANONYMOUS</p>
+                <p style="font-size:35px;">LUST FOR LIFE.</p>
+                <a th:href="@{/exercise}">
+                    <input type="button" id="11111111" value="RETURN EXERCISE HOME" style="background-color:#a7d41e;font-size:22px;color:white;margin-top:20px;">
+                </a>
+            </td>
+        </tr>
+    </table>
+    <ul class="pagination" style="position:absolute;bottom:0px;padding-left:36%;padding-right:64%;padding-bottom:10px;background-color:#a7d41e;height:30px;width:100%;">
+        <li style="text-align:center;">
+            <a th:href="@{/exercise/reflectFaultQuestion(pn=${pn}-1)}">PREV</a>
+        </li>
+        <li th:each="num:${#numbers.sequence(1,falseChoiceQuestionList.size())}" style="text-align:center;">
+            <a th:class="${num == pn?'active':''}" th:href="@{/exercise/reflectFaultQuestion(pn=${num})}">[[${num}]]</a>
+        </li>
+        <li style="text-align:center;" onclick="panduan()" th:switch="${pn == falseChoiceQuestionList.size()}">
+            <a th:case="true" th:href="@{/exercise}">NEXT</a>
+            <a th:case="false" th:href="@{/exercise/reflectFaultQuestion(pn=${pn}+1)}">NEXT</a>
+        </li>
+    </ul>
+</form>
+</body>
+</html>

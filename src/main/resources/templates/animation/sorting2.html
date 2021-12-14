@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation-Sorting</title>
+    <script src="js/jQuery_sort2.js"></script>
+    <script src="js/animation_sort2.js"></script>
+    <link rel="stylesheet" href="js/jquery-ui-1.12.1_2/jquery-ui.min.css">
+    <script src="js/jquery-ui-1.12.1_2/jquery.min.js"></script>
+    <script src="js/jquery-ui-1.12.1_2/jquery-ui.min.js"></script>
+</head>
+<body bgcolor="#E9C2A6">
+<h3 th:href="@{/home}">Datastructure.learner:Animation Sorting</h3>
+<a class="logo" th:href="@{/home}">DataStructure<span style="font-size: 60%">.learner</span><span>HOME</span></a>
+<div id="1"
+     style="text-align: center; position: relative; display: flex; justify-content: center; align-items: center;">
+
+    <div id="sort-canvas"
+         style="background: #FFFFF9; height: 450px; width: 1200px; position: relative;">
+    </div>
+</div>
+<br>
+<div id="1"
+     style="text-align: center; position: relative; display: flex; justify-content: center; align-items: center;">
+    <button id="insertsort">插入排序</button>
+    <nobr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</nobr>
+    <button id="mergesort">归并排序</button>
+    <nobr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</nobr>
+    <button id="others">更新中..</button>
+
+</div>
+<br>
+<nobr>请输入您想要的数组并以“,”隔开：</nobr>
+<input id="numnum" type="text">
+<button id="go1">执行</button>
+<button id="stop1">停止</button>
+<br>
+<br>
+<div style="float: left;">
+    <label for="amount">播放速度：</label> <input readonly="readonly"
+                                             type="text" id="amount"
+                                             style="border: 0; background: #E9C2A6; color: #FF0000; font-weight: bold; width: 31px">
+</div>
+<div style="float: left;">慢&nbsp;&nbsp;</div>
+<div id="slider"
+     style="float: left; background: #FFFFF9; height: 10px; width: 100px; position: relative;"></div>
+<div style="float: left;">&nbsp;&nbsp;快</div>
+<nobr id="abc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里可以看见输入的数据</nobr>
+<nobr id="def">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里可以看见输出的数据</nobr>
+
+<script>
+    var delay = 1000;
+    var speed = 1;
+    var speedelay = 1;
+    var dsclass = 2;
+    var styl = 0;
+    document.getElementById("insertsort").disabled = true;
+    document.getElementById("mergesort").disabled = false;
+    document.getElementById("insertsort").onclick = function() {
+        document.getElementById("insertsort").disabled = true;
+        document.getElementById("mergesort").disabled = false;
+        styl = 0
+    };
+    document.getElementById("mergesort").onclick = function() {
+        document.getElementById("insertsort").disabled = false;
+        document.getElementById("mergesort").disabled = true;
+        styl = 1
+    };
+    document.getElementById("stop1").disabled = true;
+    //滑块
+    $(function() {
+        $("#slider").slider({
+            animate : true,
+            range : "max",
+            min : 1,
+            max : 4,
+            value : 2,
+            slide : function(event, ui) {
+                $("#amount").val(ui.value);
+                dsclass = ui.value;
+                var dsc = getAnimationSpeed(dsclass).split('/');
+                delay = parseInt(dsc[0]);
+                speed = parseInt(dsc[1]);
+                speedelay = parseInt(dsc[2]);
+            }
+        });
+        $("#amount").val($("#slider").slider("value"));
+    });
+
+    //
+    var a;
+    document.getElementById("numnum").value = "21,22,34,12,42,50,4,17";
+    var temp = $('#numnum').val();
+    var getStr = temp.split(",");
+    var spanname = newPlayer_sort(getStr);
+    var num1 = new Array(getStr.length);
+    for (var s = 0; s < getStr.length; s++) {
+        num1[s] = parseInt(getStr[s]);
+    }
+
+    document.getElementById("go1").onclick = function() {
+        document.getElementById("go1").disabled = true;
+        document.getElementById("stop1").disabled = false;
+        mess = document.getElementById("numnum").value;
+        document.getElementById("abc").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            + mess;
+        var getStr1 = $('#numnum').val().split(",");
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(getStr1);
+        num1 = new Array(getStr1.length);
+
+        for (var s = 0; s < getStr1.length; s++) {
+            num1[s] = parseInt(getStr1[s]);
+            console.log(spanname[s]);
+        }
+
+        console.log("|||||||||");
+        if (styl == 0) {
+            var an = getAnimationArray_InsertionSort(spanname, num1);
+            var newstr;
+            newstr = num1[0] + "";
+            var w = 1;
+            while (w < getStr1.length) {
+                newstr = newstr + "," + num1[w] + "";
+                w++;
+            }
+            document.getElementById("def").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                + newstr;
+        } else {
+            var an = getAnimationArray_MergeSort(spanname, num1);
+            var newstr;
+            newstr = num1[0] + "";
+            var w = 1;
+            while (w < getStr1.length) {
+                newstr = newstr + "," + num1[w] + "";
+                w++;
+            }
+            document.getElementById("def").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                + newstr;
+        }
+        for (var i = 0; i < an.length; i++) {
+            for (var j = 0; j < an[i].length; j++) {
+                console.log(an[i][j]);
+            }
+            console.log("\n");
+        }
+        var i = 1;
+
+        setTimeout(function animatee() {
+            if (i < an.length) {
+                setTimeout(function() {
+                    for (var j = 0; j < an[i].length; j++) {
+                        var message1 = an[i][j].split('/');
+                        var ele2 = document.getElementById(spanname[j]);
+                        console.log(an[i][j]);
+                        console.log(spanname[j]);
+                        console.log(ele2.id);
+                        console.log(message1[0] + "|" + ele2.offsetLeft);
+                        console.log(message1[1] + "|" + ele2.offsetTop);
+                        displayment_sort(ele2, parseInt(message1[0]),
+                            parseInt(message1[1]), speed, speedelay);
+                        chargecolor_sort(ele2, message1[2]);
+                    }
+                    setTimeout(function() {
+                        for (var j = 0; j < spanname.length; j++) {
+                            var message1 = an[i][j].split('/');
+                            spanname[j] = "sort-sign-" + message1[3];
+                            console.log(spanname[j]);
+                            console.log(message1[3]);
+                        }
+                    }, delay);
+                }, delay);
+            } else {
+                document.getElementById("go1").disabled = false;
+                return;
+            }
+            if (i < an.length) {
+                setTimeout(function() {
+                    animatee();
+                    i++;
+                }, delay);
+                console.log("\n");
+            } else {
+                return;
+            }
+        }, delay);
+    };
+
+    document.getElementById("stop1").onclick = function() {
+        window.location.reload();
+    }
+
+    document.getElementById("bt1").onclick = function() {
+
+    };
+</script>
+</body>
+</html>

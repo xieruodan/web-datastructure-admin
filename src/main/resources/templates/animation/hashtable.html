@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation-Hashtable</title>
+    <script src="js/jQuery3.js"></script>
+    <script src="js/animation_hashtable.js"></script>
+    <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.min.css">
+    <script src="js/jquery-ui-1.12.1/jquery.min.js"></script>
+    <script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body bgcolor="#E9C2A6">
+
+<h3 th:href="@{/home}">Datastructure.learner:Animation Hash Table</h3>
+<a class="logo" th:href="@{/home}">DataStructure<span style="font-size: 60%">.learner</span><span>HOME</span></a>
+
+<div id="sort-canvas"
+     style="background: #FFFFF9; height: 400px; width: 1200px; position: relative; margin:0 auto;">
+</div>
+<br>
+
+数字<input id="numnum" type="text">
+大小<input id="size" type="text">
+<button id="numnum1">创建</button>
+<br>
+<input id="search" type="text">
+<button id="search1">查找</button>
+<input id="insert" type="text">
+<button id="insert1">插入</button>
+<br>
+
+<script>
+    var a;
+    document.getElementById("numnum").value = "21,42,6,15,27,12,25,18";
+    document.getElementById("size").value = "7";
+    document.getElementById("search").value = "";
+    document.getElementById("insert").value = "";
+    var temp = $('#numnum').val();
+    var tempsize = $('#size').val();
+    var mystr = temp.split(",");
+    var d = 0;
+    var getStr = new Array();
+    for( var p = 0; p < tempsize; p++){
+        getStr[p] = new Array();
+    }
+    for( var k = 0; k < mystr.length; k++){
+        d = mystr[k] % tempsize;
+        getStr[d].push(mystr[k]);
+    }
+    var spanname = newPlayer_sort(tempsize, getStr);
+    document.getElementById("numnum1").onclick = function() {
+        temp = document.getElementById("numnum").value;
+        tempsize = document.getElementById("size").value;
+        document.getElementById("abc").innerHTML = temp;
+        $('#sort-canvas').html("");
+        var str = temp.split(",");
+        var d = 0;
+        var getStr = new Array();
+        for( var p = 0; p < tempsize; p++){
+            getStr[p] = new Array();
+        }
+        for( var k = 0; k < str.length; k++){
+            d = str[k] % tempsize;
+            getStr[d].push(str[k]);
+        }
+        spanname = newPlayer_sort(tempsize, getStr);
+    };
+    document.getElementById("search1").onclick = function() {
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(tempsize,getStr);
+        var searchfor = $('#search').val();
+        var flag = 0;
+        var index ;
+        var t = searchfor % tempsize;
+        function doSetTimeout(i) {
+            setTimeout(function() {
+                chargecolor_sort(document.getElementById(spanname[i][0]), "#FF9900");
+            }, 1000 * (i+1));
+        }
+        for (var e = 0; e < t; e++){
+            doSetTimeout(e);
+        }
+        doSetTimeout(e);
+        setTimeout(function() {
+            chargecolor_sort(document.getElementById(spanname[e][0]), "#20B2AA");
+        }, 1000 * (e + 2));
+        function domySetTimeout(i) {
+            setTimeout(function() {
+                chargecolor_sort(document.getElementById(spanname[e][i+1]), "#FF9900");
+            }, 1000 * (e + i + 4));
+        }
+        setTimeout(function() {
+            chargecolor_sort(document.getElementById(spanname[e][0]), "#FF9900");
+        }, 1000 * (e + 3));
+        for (index = 0; index < getStr[e].length; index++) {
+            domySetTimeout(index);
+            if (searchfor == getStr[e][index] ) {
+                flag = 1;
+                setTimeout(function() {
+                    chargecolor_sort(document.getElementById(spanname[e][index+1]), "#20B2AA");
+                }, 1000 * (e+index+5));
+                break;
+            }
+        }
+        if( flag == 1 ) {
+            document.getElementById("abc").innerHTML = "找到元素" + searchfor + "。";
+        } else {
+            document.getElementById("abc").innerHTML = "没有找到元素" + searchfor + "。";
+        }
+    };
+    document.getElementById("insert1").onclick = function() {
+        $('#sort-canvas').html("");
+        spanname = newPlayer_sort(tempsize, getStr);
+        var insertfor = $('#insert').val();
+        getStr.push(insertfor);
+        var x = insertfor % tempsize;
+        function doSetTimeout(i) {
+            setTimeout(function() {
+                chargecolor_sort(document.getElementById(spanname[i][0]), "#FF9900");
+            }, 1000 * (i+1));
+        }
+        for (var e = 0; e < x; e++){
+            doSetTimeout(e);
+        }
+        var j = spanname[x].length;
+        doSetTimeout(e);
+        setTimeout(function() {
+            chargecolor_sort(document.getElementById(spanname[e][0]), "#20B2AA");
+        }, 1000 * (e + 2));
+        setTimeout(function() {
+            addele(insertfor, spanname, x);
+        }, 1000* (e + 3));
+        setTimeout(function() {
+            chargecolor_sort(document.getElementById(spanname[e][j]), "#20B2AA");
+        }, 1000 * (e + 4));
+    };
+</script>
+<p id="abc">21,42,6,15,27,12,25,18</p>
+</body>
+</html>

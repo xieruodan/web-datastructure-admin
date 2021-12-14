@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>TUTORIAL-BINARY SEARCH TREE</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>二叉搜索树</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+            <header>
+                <h2>二叉搜索树简介</h2>
+            </header>
+            <h3>二叉搜索树定义：</h3>
+            <img src="images/BST1.jpg" alt="BST1" width="501" height="359">
+            <p>二叉搜索树（Binary Search Tree），又称二叉排序树，它或者是一颗空树，或者具有如下性质的树：
+                若它的左子树不为空，则左子树上所有节点的值都小于根节点的值
+                若它的右子树不为空，则右子树上所有节点的值都大于根节点的值
+                它的左右子树也分别为二叉搜索树</p>
+            <h3>二叉搜索树的原理：</h3>
+            <p>二叉排序树的查找过程和次优二叉树类似，通常采取二叉链表作为二叉排序树的存储结构。中序遍历二叉排序树可得到一个关键字的有序序列，一个无序序列可以通过构造一棵二叉排序树变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。每次插入的新的结点都是二叉排序树上新的叶子结点，在进行插入操作时，不必移动其它结点，只需改动某个结点的指针，由空变为非空即可。搜索,插入,删除的复杂度等于树高，O(log(n)).</p>
+            <h3>二叉树的分类：</h3>
+            <p>满二叉树：从高到低，除了叶节点外，所以节点左右节点都存在。</p>
+            <p>完全二叉树：比满二叉树少几个叶节点，从左向右放子节点。</p>
+            <p>平衡二叉树：空树或者它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树也都是平衡树。</p>
+            <p>二叉搜索树：空树或者二叉树的所有节点比他的左子节点大，比他的右子节点小。</p>
+            <p>红黑树：不仅是具有二叉搜索树的属性，还具有平衡树的属性，有序且子树差不超过1，颜色规则——根节点和特殊节点（即叶节点下面两个虚无的节点和未填写的节点）是黑的，红节点的左右子节点是黑的，最重要的是对于每个节点，从该节点到子孙叶节点的所有路径包含相同数目的黑节点。</p>
+            <h3>二叉树在搜索上的优势：</h3>
+            <p>数组的搜索比较方便，可以直接使用下标，但删除或者插入就比较麻烦了，而链表与之相反，删除和插入都比较简单，但是查找很慢，这自然也与这两种数据结构的存储方式有关，数组是取一段相连的空间，而链表是每创建一个节点便取一个节点所需的空间，只是使用指针进行连接，空间上并不是连续的。而二叉树就既有链表的好处，又有数组的优点。</p>
+            <hr />
+            <h2>基本操作</h2>
+            <h3>插入：</h3>
+            <p>向二叉搜索树中插入新元素时，必须先检测这个元素是否在树中已经存在。如果已经存在，则不进行插入，如果元素不存在则将新元素插入到搜索停止的时候，也就是每次插入都是一个叶子节点。</p>
+            <img src="images/BST5.png" alt="BST5" width="800" height="500">
+            <h3>查找：</h3>
+            <p>在一棵不为空的二叉搜索树中查找元素时，如果要查找的元素与根节点的值相等，则返回true 或根节点，如果小于根节点的值，则在左子树查找，如果大于根节点的值，在其右子树中查找。否则，返回false或者NULL。</p>
+            <P>1.查找具有特定key的节点：当我们要查找一个具有给定key的节点时，我们从根节点开始与节点的key值进行比较，若是小于此节点的key则继续比对这个节点的左孩子的key，若是大于此节点的key，则继续比对这个节点的右孩子的key，直到key相等返回节点，或者查找失败，节点不存在返回null，这是一个明显类似递归查找的过程，但是我们可以用一个循环来代替这个递归过程，这样的效率更好一点。</P>
+            <img src="images/BST2.png" alt="BST2" width="800" height="200">
+            <P>2.查找特定节点的前驱：节点x的前驱，就是指key值小于x.key的节点中key值最大的那个，若x的左子树不为空，则x前驱是x节点左子树里最靠右的那个节点，如果x的左子树为空，那么我们就要向上找x的第一个有右孩子且左子树里没有x节点的祖先。（此时x就相当于这个祖先的后继，结合后继的查找方式来理解第二种情况会比较简单，看看图中两个节点的位置关系会很有助于理解）</P>
+            <img src="images/BST4.png" alt="BST4" width="800" height="300 ">
+            <P>3.查找特定节点的后继：节点x的后继，就是指key值大于x.key的节点中key值最小的那个，若x的右子树不为空，则x后继是x节点右子树里最靠左的那个节点，如果x的右子树为空，那么我们就要向上找x的第一个有左孩子且右子树里没有x节点的祖先。（此时x就相当于这个祖先的前驱，结合前驱的查找方式来理解第二种情况会比较简单，所以前驱和后继的查找要两个一起看，因为如果x是y的前驱，那么y就是x的后继，所以画一个图来看他们的位置关系会有助于理解，可以试试上面那张二叉树的图例）</P>
+            <img src="images/BST3.png" alt="BST3" width="800" height="300 ">
+            <h3>删除：</h3>
+            <img src="images/BST6.png" alt="BST6" width="800" height="300">
+            <p>相对查找和插入操作来说，删除算是二叉搜索树中最复杂的一个操作。我们需要分情况讨论：</p>
+            <p>1.首先判断是否是一颗空树，是空树则直接返回false，表示删除失败，否则进行下一步。</p>
+            <p>2.判断当前树是否只有一个结点，且比较要删除的值与根节点的值是否相同，相同则删除成功，不相同，表示删除失败</p>
+            <p>3.以上条件都不满足，可分以下三步：</p>
+            <p>1）找到要删除的结点</p>
+            <p>2）分情况讨论节点的情况，根据所在位置的不同，进行值变换，和指针调整（下面有具体描述）</p>
+            <p>3）删除该节点</p>
+            <img src="images/BST7.png" alt="BST7" width="800" height="680">
+
+        </div>
+    </div>
+</section>
+
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

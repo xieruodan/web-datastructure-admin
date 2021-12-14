@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>START NEW THREAD</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload" style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>创建帖子</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+            <!-- Elements -->
+            <div class="row">
+                <div class="col-6 col-12-medium">
+
+                    <h4>Welcome</h4>
+                    <dl>
+                        <dt>Terms</dt>
+                        <dd>
+                            <p>DataStructure</p>
+                        </dd>
+                        <dt>Warning</dt>
+                        <dd>
+                            <p>Only for communication</p>
+                        </dd>
+                        <dt>Tip</dt>
+                        <dd>
+                            <p>Not oriented for commercial use</p>
+                        </dd>
+                    </dl>
+
+                    <!-- Icons -->
+                    <h3>Icons</h3>
+                    <ul class="icons">
+                        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+                        <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+                        <li><a href="#" class="icon fa-tumblr"><span class="label">Tumblr</span></a></li>
+                        <li><a href="#" class="icon fa-apple"><span class="label">Apple</span></a></li>
+                        <li><a href="#" class="icon fa-windows"><span class="label">Windows</span></a></li>
+                        <li><a href="#" class="icon fa-500px"><span class="label">500px</span></a></li>
+                    </ul>
+
+                    <!-- Blockquote -->
+                    <h3>Warning</h3>
+                    <blockquote>This website is made only for academic communication, no commercial.</blockquote>
+                </div>
+
+                <div class="col-6 col-12-medium">
+                    <!-- Form -->
+                    <h3>Form</h3>
+                    <form id="indexform" name="indexForm" method="post" action="fatie2.jsp">
+                        <div class="row gtr-uniform">
+                            <div class="col-6 col-12-xsmall">
+                                <input type="text" name="name" id="name" value="" placeholder="您的用户名" />
+                            </div>
+                            <div class="col-6 col-12-xsmall">
+                                <input type="text" name="password" id="password" value="" placeholder="帖子名称" />
+                            </div>
+                            <!-- Break -->
+                            <div class="col-12">
+                                <textarea name="textarea" id="textarea" placeholder="发帖内容" rows="6"></textarea>
+                            </div>
+                            <!-- Break -->
+                            <div class="col-12">
+                                <ul class="actions">
+                                    <li><input type="submit" value="Submit" class="primary" /></li>
+                                    <li><input type="reset" value="Reset" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

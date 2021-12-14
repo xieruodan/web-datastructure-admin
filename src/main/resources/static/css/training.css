@@ -1,0 +1,45 @@
+#topics-screen{position:fixed;height:450px;width:700px;top:50%;left:50%;margin-top:-265px;margin-left:-350px;text-align:center}
+
+#topics-screen h1{text-align:center;font-size:18px;font-weight:700;margin-bottom:20px}
+
+#topics-screen .topic{float:left;width:105px;height:100px;margin:5px;padding:10px;background:#fff;text-align:center;color:#000;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 0 3px #ddd}
+
+#topics-screen .cleared{background:#a0e5b6}
+
+#topics-screen .locked{background:#e8787e}
+
+#topics-screen .topic:hover{box-shadow:0 0 3px #aaa}
+
+#topics-screen .topic img{width:100px;margin-bottom:6px}
+
+#start-training{width:105px;margin-top:5px;font-size:12px}
+
+#info #submit-test{margin-top:0}
+
+#info #restart-test{display:fixed;top:60px;right:60px;width:150px}
+
+#select-all-button,#select-quiz-1-button,#select-quiz-2-button,#select-cs2040c-button,#select-clear-button{padding-left:5px;padding-right:5px;font-size:12px}.grayscale{-webkit-filter:grayscale(100%);
+
+-moz-filter:grayscale(100%);
+
+-ms-filter:grayscale(100%);
+
+-o-filter:grayscale(100%);
+
+filter:grayscale(100%);
+
+filter:gray;
+
+text-decoration:none;
+
+font-style:normal}.topic-selected{text-decoration:underline;font-style:italic}
+
+#submission-confirmation{display:none;height:100px;width:300px;margin-left:-150px;margin-top:-80px;text-align:center}
+
+#submission-confirmation input[type=button]{width:50px}#my-training-stats{font-size:14px;width:350px;margin-left:-175px;margin-top:-250px}
+
+#my-training-stats table th{text-align:left;padding-bottom:5px}
+
+#my-training-stats table th,#my-training-stats table td{padding-left:10px;padding-right:10px}
+
+#my-training-stats table .training-stats-times-attempted{text-align:right}

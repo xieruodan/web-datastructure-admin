@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>TUTORIAL-BASIC CONCEPT</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>基础概念</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+
+            <header>
+                <h2>算法简介</h2>
+            </header>
+            <h3>算法的基本概念：</h3>
+            <img src="images/B1.jpg" alt="B1" width="221" height="449">
+            <p>算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。如果一个算法有缺陷，或不适合于某个问题，执行这个算法将不会解决这个问题。不同的算法可能用不同的时间、空间或效率来完成同样的任务。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。</p>
+            <p>算法中的指令描述的是一个计算，当其运行时能从一个初始状态和（可能为空的）初始输入开始，经过一系列有限而清晰定义的状态，最终产生输出并停止于一个终态。一个状态到另一个状态的转移不一定是确定的。随机化算法在内的一些算法，包含了一些随机输入。</p>
+            <img src="images/B2.bmp" alt="B2" width="599" height="172">
+            <h3>算法的基本特征：</h3>
+            <p>1.可行性:由于算法的设计是为了在某一个特定的计算工具上解决某一个实际的问题而设计的。</p>
+            <p>2.确定性:算法的设计必须是每一个步骤都有明确的定义，不允许有模糊的解释，也不能有多义性。</p>
+            <p>3.有穷性:算法的有穷性，即在一定的时间是能够完成的，即算法应该在计算有限个步骤后能够正常结束。</p>
+            <p>4.拥有足够的情报:算法的执行与输入的数据和提供的初始条件相关，不同的输入或初始条件会有不同的输出结果，提供准确的初始条件和数据，才能使算法正确执行。</p>
+            <hr />
+            <h2>算法设计</h2>
+            <h3>基本方法：</h3>
+            <p>1.列举法:基本思想是，根据提出的问题，列举出所有可能的情况，并用问题中给定的条件检验哪些是满足条件的，哪些是不满足条件的。</p>
+            <p>2.归纳法:基本思想是，通过列举少量的特殊情况，经过分析，最后找出一般的关系。</p>
+            <p>3.递推:是从已知的初始条件出发，逐次推出所要求的各个中间环节和最后结果。本质也是一种归纳，递推关系式通常是归纳的结果。</p>
+            <p>4.递归:在解决一些复杂问题时，为了降低问题的复杂程序，通常是将问题逐层分解，最后归结为一些最简单的问题。分为直接递归和间接递归两种方法。</p>
+            <p>5.减半递推技术:减半递推即将问题的规模减半，然后，重复相同的递推操作。</p>
+            <p>6.回溯法:有些实际的问题很难归纳出一组简单的递推公式或直观的求解步骤，也不能使用无限的列举。</p>
+            <h3>算法效率的度量方法：</h3>
+            <p>同一问题可用不同算法解决，而一个算法的质量优劣将影响到算法乃至程序的效率。算法分析的目的在于选择合适算法和改进算法。一个算法的评价主要从时间复杂度和空间复杂度来考虑。</p>
+            <p>1.时间复杂度</p>
+            <p>算法的时间复杂度是指执行算法所需要的计算工作量。一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。</p>
+            <p>T(n)=Ο(f(n))</p>
+            <p>因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）</p>
+            <p>2.空间复杂度</p>
+            <p>算法的空间复杂度是指算法需要消耗的内存空间。其计算和表示方法与时间复杂度类似，一般都用复杂度的渐近性来表示。同时间复杂度相比，空间复杂度的分析要简单得多。</p>
+            <p>3.正确性</p>
+            <p>算法的正确性是评价一个算法优劣的最重要的标准。</p>
+            <p>4.可读性</p>
+            <p>算法的可读性是指一个算法可供人们阅读的容易程度。</p>
+            <p>5.健壮性</p>
+            <p>健壮性是指一个算法对不合理数据输入的反应能力和处理能力，也称为容错性。</p>
+            <h3>最坏情况与平均情况：</h3>
+            <p>最坏情况运行时间是一种保证，那就是运行时间不会更坏了。（我们提到的运行时间都为此）</p>
+            <p>平均运行时间是所有情况中最有意义的，应为它是期望的运行时间。(但这个时间很难得到，只能通过大量的测试估算)</p>
+
+
+
+
+
+        </div>
+    </div>
+</section>
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+</body>
+</html>

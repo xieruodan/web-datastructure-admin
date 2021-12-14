@@ -1,0 +1,65 @@
+spring:
+  datasource: #mysql数据源配置
+    url: jdbc:mysql://localhost:3306/datastructurelearner
+    username: root
+    password: 666888
+    driver-class-name: com.mysql.jdbc.Driver
+
+    druid:
+      aop-patterns: com.butter.admin.* #监控spring的bean
+      filters: stat,wall,slf4j #stat sql监控，防火墙监控
+
+      stat-view-servlet: #开启监控页
+        enabled: true
+        login-username: butter
+        login-password: butterxrd
+        reset-enable: false
+
+      web-stat-filter: #开启监控web URI
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.png,*.jpg,*.mp4,*.css,*.ico,/druid/*,*.woff2' #排除静态资源
+
+      filter: #sql过滤规则
+        stat:
+          slow-sql-millis: 1000
+          log-slow-sql: true
+        wall:
+          enabled: true
+  rabbitmq: #rabbitmq配置
+    host: 100.81.156.80
+    username: guest
+    password: guest
+  application: #springcloud微服务发布名称
+    name: DataStructure_AdminEsProvider
+  redis: #redis配置
+    host: 100.81.156.80
+  security:
+    user:
+      name: butter
+      password: butterxrd
+
+#  web:
+#    resources:
+#      static-locations: classpath:/static/
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+server:
+  port: 8080 #WebDatastructureAdminLoadBalance2的端口是8070
+eureka: #springcloud微服务
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://@localhost:8076/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipaddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5
+#debug: true #打开自动配置报告

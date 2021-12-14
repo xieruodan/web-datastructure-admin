@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>TUTORIAL-GRAPH TRAVERSAL</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>搜索</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+
+            <header>
+                <h2>广度优先搜索</h2>
+            </header>
+            <h3>基本概念：</h3>
+            <p>宽度优先搜索算法（又称广度优先搜索）是最简便的图的搜索算法之一，这一算法也是很多重要的图的算法的原型。其别名又叫BFS，属于一种盲目搜寻法，目的是系统地展开并检查图中的所有节点，以找寻结果。换句话说，它并不考虑结果的可能位置，彻底地搜索整张图，直到找到结果为止。</p>
+            <h3>概述：</h3>
+            <p>BFS，其英文全称是Breadth First Search。 BFS并不使用经验法则算法。从算法的观点，所有因为展开节点而得到的子节点都会被加进一个先进先出的队列中。一般的实验里，其邻居节点尚未被检验过的节点会被放置在一个被称为 open 的容器中（例如队列或是链表），而被检验过的节点则被放置在被称为 closed 的容器中。（open-closed表）</p>
+            <h3>基本思想：</h3>
+            <p>设图G的初态是所有顶点均未访问，在G 中任选一顶点i作为初始点，则广度优先搜索的基本思想是：</p>
+            <p>1.从图中的某个顶点V出发，访问之；并将其访问标志置为已被访问，即visited[i]=1；</p>
+            <p>2.依次访问顶点V的各个未被访问过的邻接 点，将V的全部邻接点都访问到；</p>
+            <p>3.分别从这些邻接点出发，依次访问它们的未被访问过的邻接点，并使“先被访问的顶点的邻接点”先于“后被访问的顶点的邻接点”被访问，直到图中所有已被访问过的顶点的邻接点都被访问到。 </p>
+            <p>依此类推，直到图中所有顶点都被访问完为止 。</p>
+            <p>广度优先搜索在搜索访问一层时，需要记住已被访问的顶点，以便在访问下层顶点时，从已被访问的顶点出发搜索访问其邻接点。所以在广度优先搜索中需要设置一个队列Queue，使已被访问的顶点顺序由队尾进入队列。在搜索访问下层顶点时，先从队首取出一个已被访问的上层顶点，再从该顶点出发搜索访问它的各个邻接点。</p>
+            <h3>无向图的广度优先搜索：</h3>
+            <p>第1步：访问A。 </p>
+            <p>第2步：依次访问C,D,F。在访问了A之后，接下来访问A的邻接点。前面已经说过，在本文实现中，顶点ABCDEFG按照顺序存储的，C在"D和F"的前面，因此，先访问C。再访问完C之后，再依次访问D,F。 </p>
+            <p>第3步：依次访问B,G。在第2步访问完C,D,F之后，再依次访问它们的邻接点。首先访问C的邻接点B，再访问F的邻接点G。 </p>
+            <p>第4步：访问E。在第3步访问完B,G之后，再依次访问它们的邻接点。只有G有邻接点E，因此访问G的邻接点E。</p>
+            <p>结论：访问顺序是：A -> C -> D -> F -> B -> G -> E</p>
+            <img src="images/g2.jpg" alt="g2" width="530" height="511">
+            <h3>有向图的广度优先搜索：</h3>
+            <p>第1步：访问A。 </p>
+            <p>第2步：访问B。 </p>
+            <p>第3步：依次访问C,E,F。在访问了B之后，接下来访问B的出边的另一个顶点，即C,E,F。前面已经说过，在本文实现中，顶点ABCDEFG按照顺序存储的，因此会先访问C，再依次访问E,F。 </p>
+            <p>第4步：依次访问D,G。在访问完C,E,F之后，再依次访问它们的出边的另一个顶点。还是按照C,E,F的顺序访问，C的已经全部访问过了，那么就只剩下E,F；先访问E的邻接点D，再访问F的邻接点G。</p>
+            <p>结论：访问顺序是：A -> B -> C -> E -> F -> D -> G</p>
+            <img src="images/g3.jpg" alt="g3" width="586" height="455">
+            <p>广度优先搜索的详细步骤如图所示：</p>
+            <img src="images/g1.jpg" alt="g1" width="861" height="698">
+            <hr />
+            <h2>深度优先搜索</h2>
+            <h3>基本概念：</h3>
+            <p>深度优先搜索是一种在开发爬虫早期使用较多的方法。它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) 。在一个HTML文件中，当一个超链被选择后，被链接的HTML文件将执行深度优先搜索，即在搜索其余的超链结果之前必须先完整地搜索单独的一条链。深度优先搜索沿着HTML文件上的超链走到不能再深入为止，然后返回到某一个HTML文件，再继续选择该HTML文件中的其他超链。当不再有其他超链可选择时，说明搜索已经结束。</p>
+            <h3>基本思想：</h3>
+            <img src="images/g4.jpg" alt="g4" width="531" height="414">
+            <p>图的深度优先搜索(Depth First Search)，和树的先序遍历比较类似。它的思想：</p>
+            <p>假设初始状态是图中所有顶点均未被访问，则从某个顶点v出发，首先访问该顶点，然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到。 若此时尚有其他顶点未被访问到，则另选一个未被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到为止。</p>
+            <p>显然，深度优先搜索是一个递归的过程。</p>
+            <p>深度优先遍历特点是，选定一个出发点后进行遍历，能前进则前进，若不能前进，回退一步再前进，或再回退一步后继续前进。依此重复，直到所有与选定点相通的所有顶点都被遍历。</p>
+            <h3>无向图的深度优先搜索：</h3>
+            <img src="images/g5.jpg" alt="g5" width="417" height="303">
+            <p>对上面的图G1进行深度优先遍历，从顶点A开始。</p>
+            <img src="images/g6.jpg" alt="g6" width="436" height="341">
+            <p>第1步：访问A。 </p>
+            <p>第2步：访问(A的邻接点)C。在第1步访问A之后，接下来应该访问的是A的邻接点，即"C,D,F"中的一个。但在本文的实现中，顶点ABCDEFG是按照顺序存储，C在"D和F"的前面，因此，先访问C。</p>
+            <p>第3步：访问(C的邻接点)B。在第2步访问C之后，接下来应该访问C的邻接点，即"B和D"中一个(A已经被访问过，就不算在内)。而由于B在D之前，先访问B。 </p>
+            <p>4步：访问(C的邻接点)D。在第3步访问了C的邻接点B之后，B没有未被访问的邻接点；因此，返回到访问C的另一个邻接点D。</p>
+            <p>第5步：访问(A的邻接点)F。前面已经访问了A，并且访问完了"A的邻接点B的所有邻接点(包括递归的邻接点在内)"；因此，此时返回到访问A的另一个邻接点F。</p>
+            <p>第6步：访问(F的邻接点)G。 </p>
+            <p>第7步：访问(G的邻接点)E。</p>
+            <p>结论：访问顺序是：A -> C -> B -> D -> F -> G -> E</p>
+            <h3>有向图的深度优先搜索：</h3>
+            <img src="images/g7.jpg" alt="g7" width="303" height="322">
+            <p>对上面的图G2进行深度优先遍历，从顶点A开始。</p>
+            <img src="images/g8.jpg" alt="g8" width="303" height="360">
+            <p>第1步：访问A。 </p>
+            <p>第2步：访问B。在访问了A之后，接下来应该访问的是A的出边的另一个顶点，即顶点B。 </p>
+            <p>第3步：访问C。在访问了B之后，接下来应该访问的是B的出边的另一个顶点，即顶点C,E,F。在本文实现的图中，顶点ABCDEFG按照顺序存储，因此先访问C。</p>
+            <p>第4步：访问E。接下来访问C的出边的另一个顶点，即顶点E。 </p>
+            <p>第5步：访问D。接下来访问E的出边的另一个顶点，即顶点B,D。顶点B已经被访问过，因此访问顶点D。</p>
+            <p>第6步：访问F。接下应该回溯"访问A的出边的另一个顶点F"。 </p>
+            <p>第7步：访问G。</p>
+            <p>结论：访问顺序是：A -> B -> C -> E -> D -> F -> G</p>
+
+
+
+
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

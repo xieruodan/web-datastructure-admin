@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FORUM</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet"/>
+    <link href="css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body>
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+<!-- Heading -->
+<div id="heading">
+    <h1>DataStructure.learner的大碗子</h1>
+</div>
+
+<div id="wrapper">
+    <div id="page" class="container">
+        <div id="content">
+            <div class="title">
+                <h2>欢迎来到DataStructure.learner的大碗子</h2>
+                <span class="byline" style="color:#8B0000">Welcome to our website</span></div>
+            <img src="images/pic03.jpg" width="700" height="200" alt="" class="image image-full"/>
+            <p>这是 <strong>DataStructure.Learner</strong>, 这是一个免费、完全由学生组织创建的仅供交流学习的网站。主页链接 <a th:href="@{/home}"
+                                                                                             rel="nofollow">主页</a></p>
+            <div id="onecolumn">
+                <div class="title">
+                    <h2>以往帖子列表</h2>
+                </div>
+                <p>这些帖子集合了前人的智慧，请大家尊重知识，多多交流学习</p>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>贴子标题</th>
+                        <th>创建者ID</th>
+                        <th>最后被回复时间</th>
+                        <th>总点赞数</th>
+                        <th>详细内容</th>
+                    </tr>
+                    </thead>
+                    <tr class="style2" th:each="thread,stat:${currentList}">
+                        <td th:text="${thread.getTitle()}"></td>
+                        <td th:text="${thread.getCreatorId()}"></td>
+                        <td th:text="${thread.getLastAnsweredAt()}"></td>
+                        <td th:text="${thread.getUpvoteCount()}"></td>
+                        <td>
+                            <div class="box-right" size="5" width="15" height="5" style="font-size:10px">
+                                <a th:href="@{/thread(threadId=${thread.getThreadId()})}"
+                                   class="button button-big">查看贴子</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <ul>
+                    <li th:switch="${pn == 1}">
+                        <a th:case="true" th:href="@{/forumMain(pn=${pages})}">PREV</a>
+                        <a th:case="false" th:href="@{/forumMain(pn=${pn}-1)}">PREV</a>
+                    </li>
+                    <li th:each="num:${#numbers.sequence(1,pages)}">
+                        <a th:href="@{/forumMain(pn=${num})}" th:class="${num == pn?'active':''}">[[${num}]]</a>
+                    </li>
+                    <li th:switch="${pn == pages}">
+                        <a th:case="true" th:href="@{/forumMain(pn=1)}">NEXT</a>
+                        <a th:case="false" th:href="@{/forumMain(pn=${pn}+1)}">NEXT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="sidebar">
+            <ul class="style1">
+                <li class="first">
+                    <h3>本网站友情提示</h3>
+                    <p><a href="#">本网站仅供交流学习使用，如无其他用途请勿商用</a></p>
+                </li>
+                <li>
+                    <h3>本网站交流申明</h3>
+                    <p><a href="#">如有雷同，纯属巧合</a></p>
+                </li>
+            </ul>
+            <div id="stwo-col">
+                <div class="sbox1">
+                    <h2>历史排序</h2>
+                    <img src="images/pic01.jpg" width="210" height="120" alt="" class="image image-full"/>
+                    <ul class="style2">
+                        <!--                        <c:forEach var="row2" items="${result2.rows}">-->
+                        <!--                            <li><a href="fatie3.jsp"><c:out value="${row2.title}"/></a></li>-->
+                        <!--                        </c:forEach>-->
+                    </ul>
+                </div>
+                <div class="sbox2">
+                    <h2>热度排序</h2>
+                    <img src="images/pic02.jpg" width="210" height="120" alt="" class="image image-full"/>
+                    <ul class="style2">
+                        <!--                        <c:forEach var="row3" items="${result3.rows}">-->
+                        <!--                            <li><a href="#"><c:out value="${row3.title}"/></a></li>-->
+                        <!--                        </c:forEach>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ban-wrapper">
+    <div id="ban" class="container">
+        <div class="box-left">
+            <h2>欢迎积极发帖，交流学习</h2>
+            <span>没有奇迹，只有累积</span></div>
+        <br/>
+        <div class="box-right"><a th:href="@{/startNewThread}" class="button button-big">发帖</a></div>
+        <br/>
+    </div>
+</div>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+</body>
+</html>

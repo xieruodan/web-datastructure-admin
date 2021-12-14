@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>TUTORIAL-LINKED LIST</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body class="is-preload"  style="background-color:#F4F4F4;">
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>链表</h1>
+</div>
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+            <header>
+                <h2>链表简介</h2>
+            </header>
+            <h3>基本概念：</h3>
+            <p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。</p>
+            <p>使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。链表最明显的好处就是，常规数组排列关联项目的方式可能不同于这些数据项目在记忆体或磁盘上顺序，数据的存取往往要在不同的排列顺序中转换。链表允许插入和移除表上任意位置上的节点，但是不允许随机存取。链表有很多种不同的类型：单向链表，双向链表以及循环链表。链表可以在多种编程语言中实现。像Lisp和Scheme这样的语言的内建数据类型中就包含了链表的存取和操作。程序语言或面向对象语言，如C,C++和Java依靠易变工具来生成链表。</p>
+            <h3>特点：</h3>
+            <p>线性表的链式存储表示的特点是用一组任意的存储单元存储线性表的数据元素（这组存储单元可以是连续的，也可以是不连续的）。因此，为了表示每个数据元素 与其直接后继数据元素 之间的逻辑关系，对数据元素 来说，除了存储其本身的信息之外，还需存储一个指示其直接后继的信息（即直接后继的存储位置）。由这两部分信息组成一个"结点"（如下图所示），表示线性表中一个数据元素。线性表的链式存储表示，有一个缺点就是要找一个数，必须要从头开始找起，十分麻烦。</p>
+            <img src="images/l1.png" alt="l1" width="466" height="110">
+            <p>根据情况，也可以自己设计链表的其它扩展。但是一般不会在边上附加数据，因为链表的点和边基本上是一一对应的（除了第一个或者最后一个节点，但是也不会产生特殊情况）。不过有一个特例是如果链表支持在链表的一段中把前和后指针反向，反向标记加在边上可能会更方便。</p>
+            <p>对于非线性的链表，可以参见相关的其他数据结构，例如树、图。另外有一种基于多个线性链表的数据结构：跳表，插入、删除和查找等基本操作的速度可以达到O(nlogn），和平衡二叉树一样。</p>
+            <p>其中存储数据元素信息的域称作数据域（设域名为data），存储直接后继存储位置的域称为指针域（设域名为next）。指针域中存储的信息又称做指针或链。</p>
+            <p>由分别表示,，…，的N 个结点依次相链构成的链表，称为线性表的链式存储表示，由于此类链表的每个结点中只包含一个指针域，故又称单链表或线性链表。</p>
+            <p>优点：链表在内存中存储并不是连续的，可以很方便的进行插入和删除操作。</p>
+            <p>缺点：由于链表的不连续存储特性，导致索引操作不能使用下标进行，因此对链表进行搜索操作时间复杂度是O（n）级别的。</p>
+            <h3>链表形式:</h3>
+            <p>链表可以有多种形式。它可以是单链接的或双链接的，可以是已排序的或未排序的，可以是循环的或非循环的。如果一个链表是单链接的，则省略每个元素中的prev指针。如果链表是已排序的，则链表的线性顺序与链表元素中关键字的线性顺序一致；据此，最小的元素就是表头元素，而最大的元素则是表尾元素。如果链表是未排序的，则各元素可以以任何顺序出现。而在循环链表中，表头元素的prev指针指向表尾元素，而表尾元素的next指针则指向表头元素</p>
+            <P>链表的搜索：LIST-SEARCH</P>
+            <P>链表的插入：LIST-INSERT</P>
+            <p>链表的删除：LIST-DELETE</p>
+            <hr />
+            <h2>相关代码</h2>
+            <p>链表是由节点构成的，这个节点我们可以通过建立一个类来实现它。这个类我们通常选用内部类。</p>
+            <img src="images/l2.png" alt="l2" width="800" height="250">
+            <p>链表分为有头结点的链表和无头节点的链表，头结点不储存数据。本网站用的是头结点的链表。注意链表要创建一个构造方法初始化头节点，否则会产生空指针异常</p>
+            <img src="images/l3.png" alt="l3" width="800" height="100">
+            <p>1.头插</p>
+            <img src="images/l4.png" alt="l4" width="800" height="180">
+            <P>2.尾插</P>
+            <img src="images/l5.png" alt="l5" width="800" height="220">
+            <p>3.获得链表长度</p>
+            <img src="images/l6.png" alt="l6" width="800" height="220">
+            <p>4.任意位置插入</p>
+            <img src="images/l7.png" alt="l7" width="800" height="260">
+            <p>5.返回下标</p>
+            <img src="images/l8.png" alt="l8" width="800" height="280">
+            <p>6.删除指定元素</p>
+            <img src="images/l9.png" alt="l9" width="800" height="260">
+            <p>7.链表的逆置</p>
+            <img src="images/l10.png" alt="l10" width="800" height="260">
+            <p>8.求倒数第k个元素</p>
+            <img src="images/l11.png" alt="l11" width="800" height="240">
+            <p>9.求两个链表是否相交</p>
+            <img src="images/l12.png" alt="l12" width="800" height="440">
+            <p>10.判断链表是否有环，并且求入口点和环长</p>
+            <img src="images/l13.png" alt="l13" width="800" height="260">
+            <p>入口点</p>
+            <img src="images/l14.png" alt="l14" width="800" height="340">
+            <p>环长</p>
+            <p>当快慢节点第二次相遇时，慢节点从第一次到第二次相遇走的距离即环长。</p>
+            <img src="images/l15.png" alt="l15" width="800" height="420">
+
+
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

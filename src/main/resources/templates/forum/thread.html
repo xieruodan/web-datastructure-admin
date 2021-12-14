@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thread</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet"/>
+    <link href="css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <div th:replace="common :: homeCommonStyle"></div>
+</head>
+<body>
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <div th:replace="common :: homeCommonHeader5"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+<!-- Heading -->
+<div id="heading">
+    <h1>FORUM</h1>
+</div>
+
+
+<div id="wrapper">
+    <div id="page" class="container">
+        <div id="content">
+            <div class="title">
+                <h2 th:text="${currentThread.getTitle()}"></h2>
+                <span th:text="${creatorName}" class="byline" style="color:#8B0000"></span>
+                <span th:text="${currentThread.getCreatedTime()}"></span>
+                <span th:text="${currentThread.lastAnsweredBy}"></span>
+                <span th:text="${currentThread.lastAnsweredAt}"></span>
+            </div>
+            <div id="onecolumn">
+                <div class="title">
+                    <h2>以往帖子列表</h2>
+                </div>
+                <p th:text="${currentThread.getContent()}"></p>
+            </div>
+        </div>
+        <div id="sidebar">
+            <ul class="style1">
+                <li class="first">
+                    <h3>关注数</h3>
+                    <p th:text="${currentThread.getFollowCount()}"><a href="#"></a></p>
+                </li>
+                <li>
+                    <h3>点赞数</h3>
+                    <p th:text="${currentThread.getUpvoteCount()}"><a href="#">如</a></p>
+                </li>
+                <li>
+                    <h3>回复数</h3>
+                    <p th:text="${currentThread.getReplyCount()}"><a href="#">本</a></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="ban-wrapper">
+    <div id="ban" class="container">
+        <div class="box-left">
+            <br/>
+            <div class="box-right"><a th:href="@{/forumMain}" class="button button-big">回到论坛主页</a></div>
+            <br>
+            <div class="box-right"><a href="#" class="button button-big">关注</a></div>
+            <br/>
+            <div class="box-right"><a href="#" class="button button-big">点赞</a></div>
+            <br/>
+            <div class="box-right"><a href="#" class="button button-big">回复</a></div>
+            <br>
+        </div>
+    </div>
+</div>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+</body>
+</html>

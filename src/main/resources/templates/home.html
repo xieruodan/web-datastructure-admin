@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <title>HOME</title>
+
+    <!--    home common header-->
+    <div th:include="common :: homeCommonHeader"></div>
+</head>
+<body class="is-preload" style="background-color:#F4F4F4;">
+<!--home common header-->
+<!-- Header -->
+<header id="header">
+    <div th:replace="common :: homeCommonHeader4"></div>
+    <nav style="float:right;margin:0 auto;margin-right:-24px;">
+        <a href="#module">Tutorial</a>
+    </nav>
+    <nav style="float:right;margin:0 auto;margin-right:-20px;">
+        <a th:href="@{/animation/sorting}">Animation</a>
+    </nav>
+    <div th:replace="common :: homeCommonHeader1"></div>
+    <div th:replace="common :: homeCommonHeader6"></div>
+    <div th:replace="common :: homeCommonHeader2"></div>
+    <div th:replace="common :: homeCommonHeader3"></div>
+</header>
+
+
+
+
+<!-- Nav -->
+
+
+<!-- Banner -->
+<section id="banner">
+    <div class="inner">
+        <h1>DataStructure</h1>
+        <p>A responsive website oriented training and exercise with animation and question bank<br />
+            designed by team BUTTER and released under the commitment.</p>
+    </div>
+    <video autoplay loop muted playsinline src="images/banner.mp4"></video>
+</section>
+
+<!-- Highlights -->
+<section class="wrapper">
+    <div class="inner" id="module">
+        <header class="special">
+            <h2>Data Structure Learner</h2>
+            <p>A responsive website oriented training and exercise with animation and question bank<br />
+                designed by team BUTTER and released under the commitment.</p>
+        </header>
+        <div class="highlights">
+            <section>
+                <div class="content" horizontal-align="center">
+                    <header>
+                        <a href="#" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+                        <h3>Sorting</h3>
+                    </header>
+                    <p>The sequences are typically stored in arrays. We refer to the numbers as keys. We see several ways to solve the sorting problem.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-sorting}" class="button small">Tutorial</a></li>
+                        <li><a th:href="@{/animation/sorting}" class="button small">Animation</a></li>
+<!--                        sortanimation/NewFile.jsp-->
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-files-o"><span class="label">Icon</span></a>
+                        <h3>Linked List</h3>
+                    </header>
+                    <p>A linear collection of data elements, whose order is not given by their physical placement in memory, but pointing to the next.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-linked list}" class="button small">Tutorial</a></li>
+                        <li><a th:href="@{/animation/linkedList}" class="button small">Animation</a></li>
+<!--                        animation2.jsp-->
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+                        <h3>Hash Table</h3>
+                    </header>
+                    <p>A data structure that implements an associative array abstract data type, a structure that can map keys to values.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-hash table}" class="button small">Tutorial</a></li>
+                        <li><a th:href="@{/animation/hashtable}" class="button small">Animation</a></li>
+<!--                        animation3.jsp-->
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-line-chart"><span class="label">Icon</span></a>
+                        <h3>Binary Search Tree</h3>
+                    </header>
+                    <p>A particular type of container: data structures that store "items" (such as numbers, names, places etc.) in memory.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-binary search tree}" class="button small">Tutorial</a></li>
+                        <li><a href="#" class="button small">Animation</a></li>
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
+                        <h3>Graph Traversal</h3>
+                    </header>
+                    <p>It refers to the process of visiting (checking and/or updating) each vertex in a graph, also known as graph search.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-graph traversal}" class="button small">Tutorial</a></li>
+                        <li><a th:href="@{/animation/graphTraversal}" class="button small">Animation</a></li>
+<!--                        animation5.jsp-->
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
+                        <h3>Minimum Spanning Tree</h3>
+                    </header>
+                    <p>A subset of the edges of a connected, edge-weighted (un)directed graph that connects all the vertices together.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-minimum spanning tree}" class="button small">Tutorial</a></li>
+                        <li><a href="#" class="button small">Animation</a></li>
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
+                        <h3>Shortest Path</h3>
+                    </header>
+                    <p>To find a path between two vertices (or nodes) in a graph such that the sum of the weights of its constituent edges is minimized.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-shortest path}" class="button small">Tutorial</a></li>
+                        <li><a href="#" class="button small">Animation</a></li>
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
+                        <h3>Cycle Finding</h3>
+                    </header>
+                    <p>An algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles).</p>
+                    <ul class="actions" style="margin-left:-5px;">
+                        <li><a th:href="@{/tutorial-cycle finding}" class="button small">Tutorial</a></li>
+                        <li><a href="#" class="button small">Animation</a></li>
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <header>
+                        <a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
+                        <h3>Basic Concept</h3>
+                    </header>
+                    <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+                    <ul class="actions">
+                        <li><a th:href="@{/tutorial-basic concept}" class="button small">Tutorial</a></li>
+                        <li><a href="#" class="button small">Animation</a></li>
+                        <li><a th:href="@{/exercise}" class="button small">Exercise</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="wrapper" src="images/cta01.jpg">
+    <div class="inner">
+        <h2>Welcome all sensible suggestions and recommendations.</h2>
+        <p>In computer science, a data structure is a data organization and storage format that enables efficient access and modification.[1][2][3] More precisely, a data structure is a collection of data values, the relationships among them, and the functions or operations that can be applied to the data. A responsive website oriented training and exercise with animation and question bank designed by team BUTTER and released under the commitment.</p>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="wrapper">
+    <div class="inner">
+        <header class="special">
+            <h2>POSITIVE FEEDBACK</h2>
+            <p></p>
+        </header>
+        <div class="testimonials">
+            <section>
+                <div class="content">
+                    <blockquote>
+                        <p>It is the most amazing website that I have ever encountered so far. To its credit, I can finally use it to better teach my students.</p>
+                    </blockquote>
+                    <div class="author">
+                        <div class="image">
+                            <img src="images/pic01.jpg" alt="" />
+                        </div>
+                        <p class="credit">- <strong>Joe Zac</strong> <span>Professor - A Inc.</span></p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <blockquote>
+                        <p>This web does do me a lot of favor. Until I use it did I find the a part of problems I met at work were so ridiculous and easy.</p>
+                    </blockquote>
+                    <div class="author">
+                        <div class="image">
+                            <img src="images/pic03.jpg" alt="" />
+                        </div>
+                        <p class="credit">- <strong>John Dyson</strong> <span>Stu - B University</span></p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="content">
+                    <blockquote>
+                        <p>I am a student majoring in information management and successfully learn this subject as an autonomous learner use it.</p>
+                    </blockquote>
+                    <div class="author">
+                        <div class="image">
+                            <img src="images/pic02.jpg" alt="" />
+                        </div>
+                        <p class="credit">- <strong>Annial Smith</strong> <span>Engineer - C Inc.</span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!--home common footer-->
+<div th:replace="common :: homeCommonFooter"></div>
+
+<!--home common script-->
+<div th:replace="common :: #homeCommonScript"></div>
+
+</body>
+</html>

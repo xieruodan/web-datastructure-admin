@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butter.admin.mapper.ChoiceQuestionMapper">
+    <select id="getByLevelAndSection" resultType="com.butter.admin.bean.ChoiceQuestion">
+        select * from choice_question_tbl where qLevel = #{level} AND qSection = #{section} order by rand() limit 5
+    </select>
+</mapper>
