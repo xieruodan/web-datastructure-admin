@@ -47,20 +47,20 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        //super.configure(http);
-//        //定制请求的授权规则
-//        http.authorizeRequests().antMatchers("/").permitAll()
-//                .antMatchers("/exercise/**").hasRole("USER")
-//                .antMatchers("/goToExercise").hasRole("USER");
-//
-//        //开启登录功能
-//        http.formLogin().usernameParameter("userName").passwordParameter("password")
-//                .loginPage("/userlogin");
-//
-//        //开启自动配置的注销功能，注销成功，清空session，回到首页
-//        http.logout().logoutSuccessUrl("/");
-//
-//        //开启记住我功能
-//        http.rememberMe().rememberMeParameter("remember");
+        //super.configure(http);
+        //定制请求的授权规则
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/exercise/**").hasRole("USER")
+                .antMatchers("/goToExercise").hasRole("USER");
+
+        //开启登录功能
+        http.formLogin().usernameParameter("userName").passwordParameter("password")
+                .loginPage("/userlogin");
+
+        //开启自动配置的注销功能，注销成功，清空session，回到首页
+        http.logout().logoutSuccessUrl("/");
+
+        //开启记住我功能
+        http.rememberMe().rememberMeParameter("remember");
     }
 }
